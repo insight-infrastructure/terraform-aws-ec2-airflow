@@ -1,0 +1,5 @@
+roles:
+  - src: cloudalchemy.node-exporter
+    version: 0.19.0
+  - src: idealista.airflow-role
+    version: 1.8.0

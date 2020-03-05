@@ -1,0 +1,12 @@
+---
+- hosts: all
+  roles:
+    - common
+    - { role: "cloudalchemy.node-exporter", when: (node_exporter | default(false) ) }
+    - idealista.airflow-role
+
+  vars:
+    airflow_required_python_packages:
+      - {name: pyasn1, version: 0.4.4}
+    airflow_version: 1.10.9
+
