@@ -1,8 +1,10 @@
 # terraform-aws-ec2-airflow
 
+> Early work / POC -> lacks many features
+
 ## Features
 
-This module...
+This module sets up an airflow instance running the sequential executor.
 
 ## Terraform Versions
 
@@ -11,11 +13,14 @@ For Terraform v0.12.0+
 ## Usage
 
 ```
-module "this" {
-    source = "github.com/robc-io/terraform-aws-ec2-airflow"
+  source    = "../.."
+  subnet_id = module.vpc.public_subnets[0]
 
-}
-```
+  vpc_security_group_ids = [aws_security_group.this.id]
+
+  public_key_path  = "/path/to/key.pub"
+  private_key_path = "/path/to/key"
+  ```
 ## Examples
 
 - [defaults](https://github.com/robc-io/terraform-aws-ec2-airflow/tree/master/examples/defaults)
