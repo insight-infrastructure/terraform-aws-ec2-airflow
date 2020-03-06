@@ -53,7 +53,7 @@ resource "aws_instance" "this" {
 }
 
 module "ansible" {
-  source           = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.7.0"
+  source           = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.8.0"
   ip               = aws_eip_association.this.public_ip
   user             = "ubuntu"
   private_key_path = var.private_key_path
