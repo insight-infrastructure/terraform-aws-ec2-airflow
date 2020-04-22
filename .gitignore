@@ -1,7 +1,7 @@
 .idea
 
 # Terraform and terragrunt
-*.tfstate/
+*.tfstate
 *.tfstate.backup
 *.tfplan
 .terragrunt-cache/
@@ -9,5 +9,3 @@
 
 terraform.tfvars
 
-test/fixtures/keys/*
-!test/fixtures/keys/.gitkeep

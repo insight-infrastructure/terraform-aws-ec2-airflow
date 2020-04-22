@@ -1,0 +1,5 @@
+{
+  "projects": {
+    "ansible/roles/airflow-role": "https://github.com/insight-infrastructure/airflow-role.git"
+  }
+}
