@@ -2,11 +2,16 @@
 - hosts: all
   roles:
     - common
-    - { role: "cloudalchemy.node-exporter", when: (node_exporter | default(false) ) }
     - idealista.airflow-role
 
   vars:
+    # Airflow
+    airflow_pip_executable: /usr/bin/pip3
     airflow_required_python_packages:
       - {name: pyasn1, version: 0.4.4}
-    airflow_version: 1.10.9
+      - {name: werkzeug, version: 0.16.0}
+    airflow_version: 1.10.10
 
+    # EFS
+    mount_path: "/etc/airflow/dags"
+    file_system_id: "{{ file_system_id }}"
