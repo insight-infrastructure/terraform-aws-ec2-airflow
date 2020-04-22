@@ -13,6 +13,8 @@ module "vpc" {
 
   enable_nat_gateway = false
   enable_vpn_gateway = false
+
+  enable_dns_hostnames = true
 }
 
 resource "aws_security_group" "this" {
@@ -21,7 +23,8 @@ resource "aws_security_group" "this" {
   dynamic "ingress" {
     for_each = [
       22,
-    8080]
+      8080,
+    2049] # This is not ok for production
     content {
       from_port = ingress.value
       to_port   = ingress.value
