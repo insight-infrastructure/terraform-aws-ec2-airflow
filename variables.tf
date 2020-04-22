@@ -1,40 +1,19 @@
-########
-# Label
-########
 variable "name" {
-  description = "The name for the label"
+  description = "A unique name to give all the resources"
   type        = string
-  default     = "prometheus"
+  default     = "airflow"
 }
 
-variable "environment" {
-  description = "The environment"
-  type        = string
-  default     = ""
+variable "tags" {
+  description = "Tags to attach to all resources"
+  type        = map(string)
+  default     = {}
 }
 
-variable "namespace" {
-  description = "The namespace to deploy into"
-  type        = string
-  default     = "prod"
-}
-
-variable "stage" {
-  description = "The stage of the deployment"
-  type        = string
-  default     = "blue"
-}
-
-variable "network_name" {
-  description = "The network name, ie kusama / mainnet"
-  type        = string
-  default     = "main"
-}
-
-variable "owner" {
-  description = "Owner of the infrastructure"
-  type        = string
-  default     = ""
+variable "create_efs" {
+  description = "Boolean to create EFS file system"
+  type        = bool
+  default     = true
 }
 
 ######
