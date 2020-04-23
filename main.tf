@@ -1,5 +1,3 @@
-resource "random_pet" "this" {}
-
 module "ami" {
   source = "github.com/insight-infrastructure/terraform-aws-ami.git?ref=v0.1.0"
 }
@@ -19,14 +17,6 @@ resource "aws_key_pair" "this" {
   tags       = var.tags
 }
 
-data "aws_caller_identity" "this" {}
-
-resource "aws_s3_bucket" "logs" {
-  bucket = "airflow-logs-${data.aws_caller_identity.this.account_id}"
-  acl    = "private"
-  tags   = var.tags
-}
-
 resource "aws_instance" "this" {
   ami           = module.ami.ubuntu_1804_ami_id
   instance_type = var.instance_type
@@ -43,7 +33,6 @@ resource "aws_instance" "this" {
   tags = var.tags
 }
 
-//data "aws_region" "this" {}
 
 module "ansible" {
   source           = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.8.0"
@@ -54,7 +43,6 @@ module "ansible" {
   playbook_file_path = "${path.module}/ansible/main.yml"
   playbook_vars = merge({
     file_system_id = aws_efs_file_system.this.id,
-    //    aws_region = data.aws_region.this.name
   }, var.playbook_vars)
 
   requirements_file_path = "${path.module}/ansible/requirements.yml"

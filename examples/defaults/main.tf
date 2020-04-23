@@ -1,6 +1,6 @@
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
-  name   = "default"
+  name   = "airflow"
 
   cidr = "10.0.0.0/16"
 
@@ -43,7 +43,7 @@ resource "aws_security_group" "this" {
   }
 }
 
-module "defaults" {
+module "airflow" {
   source    = "../.."
   subnet_id = module.vpc.public_subnets[0]
 
@@ -52,4 +52,8 @@ module "defaults" {
 
   public_key_path  = var.public_key_path
   private_key_path = var.private_key_path
+}
+
+output "public_ip" {
+  value = module.airflow.public_ip
 }

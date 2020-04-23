@@ -1,3 +1,5 @@
+resource "random_pet" "this" {}
+
 resource "aws_iam_role" "this" {
   name               = "${title(var.name)}Role${title(random_pet.this.id)}"
   assume_role_policy = <<EOF
@@ -51,6 +53,14 @@ EOT
 resource "aws_iam_role_policy_attachment" "ebs_mount_policy" {
   role       = aws_iam_role.this.id
   policy_arn = aws_iam_policy.efs_mount_policy.arn
+}
+
+data "aws_caller_identity" "this" {}
+
+resource "aws_s3_bucket" "logs" {
+  bucket = "airflow-logs-${data.aws_caller_identity.this.account_id}"
+  acl    = "private"
+  tags   = var.tags
 }
 
 resource "aws_iam_policy" "s3_put_logs_policy" {
