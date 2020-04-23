@@ -30,7 +30,7 @@ resource "aws_security_group" "this" {
       to_port   = ingress.value
       protocol  = "tcp"
       cidr_blocks = [
-      "0.0.0.0/0"]
+      "0.0.0.0/0"] # This is only for demo.  You really should lock this down to your ip - ie 1.2.3.4/32
     }
   }
 

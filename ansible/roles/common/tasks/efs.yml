@@ -10,6 +10,7 @@
     packages:
       - binutils
       - git
+      - haproxy
 
 - name: clone efs utils
   git:
@@ -43,8 +44,30 @@
   script: wait-for-efs.sh {{ file_system_id }}
 
 - name: hacky wait efs
-  command: sleep 10
+  command: sleep 60
 
 - name: Mount using the helper
   command: mount -t efs -o tls,iam {{ file_system_id }} {{ mount_path }}/
   become: yes
+
+- name: Get current AZ from AWS.
+  uri:
+    url: http://169.254.169.254/latest/meta-data/placement/availability-zone
+    return_content: yes
+  register: aws_current_az
+
+- name: Update haproxy cofig
+  blockinfile:
+    path: /etc/haproxy/haproxy.cfg
+    block: |
+      listen {{ file_system_id }}-{{ aws_current_az.content[:-1] }}
+              bind :2049
+              mode tcp
+              option tcplog
+              timeout tunnel 300000
+              server {{ file_system_id }}-{{ aws_current_az.content }} {{ aws_current_az.content }}.{{ file_system_id }}.efs.{{ aws_current_az.content[:-1] }}.amazonaws.com:2049 check inter 60000 fastinter 15000 downinter 5000
+
+- name: Restart haproxy
+  service:
+    name: haproxy
+    state: restarted
