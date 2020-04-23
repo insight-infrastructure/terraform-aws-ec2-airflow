@@ -51,7 +51,7 @@ func validateAirflowGet(t *testing.T, exampleFolder string) {
 	url := "http://" + instanceIp + ":8080/health"
 
 	tlsConfig := tls.Config{}
-	maxRetries := 30
+	maxRetries := 60
 	timeBetweenRetries := 5 * time.Second
 
 	_, err := retry.DoWithRetryE(t, fmt.Sprintf("HTTP GET to URL %s", url), maxRetries, timeBetweenRetries, func() (string, error) {
