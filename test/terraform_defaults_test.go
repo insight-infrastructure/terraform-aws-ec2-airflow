@@ -54,6 +54,8 @@ func validateAirflowGet(t *testing.T, exampleFolder string) {
 	maxRetries := 60
 	timeBetweenRetries := 5 * time.Second
 
+	time.Sleep(120 * time.Second)
+
 	_, err := retry.DoWithRetryE(t, fmt.Sprintf("HTTP GET to URL %s", url), maxRetries, timeBetweenRetries, func() (string, error) {
 		statusCode, _, err := http_helper.HttpGetE(t, url, &tlsConfig)
 		assert.Equal(t, statusCode, 200, "Ok status code")
