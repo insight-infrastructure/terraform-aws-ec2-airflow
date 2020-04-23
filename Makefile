@@ -10,7 +10,10 @@ clear-cache:						## Clear the terragrunt and terraform caches
 	find . -type f -name "*.tfstate*" -prune -exec rm -rf {} \;
 
 test:								## Run tests
-	go test ./test -v -timeout 15m
+	go test ./test -v -timeout 45m
 
 test-init:							## Initialize the repo for tests
 	go mod init test && go mod tidy
+
+mount-efs:
+	./scripts/mount-efs-local.sh
