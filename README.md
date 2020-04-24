@@ -1,10 +1,9 @@
 # terraform-aws-ec2-airflow
 
-> Early work / POC -> lacks many features
-
 ## Features
 
-This module sets up an airflow instance running the sequential executor.
+This module sets up an airflow instance running the sequential executor on AWS. It mounts an EFS volume to that instance 
+to sync airflow DAGs locally to the workers. 
 
 ## Terraform Versions
 
@@ -12,15 +11,18 @@ For Terraform v0.12.0+
 
 ## Usage
 
-```
+```hcl-terraform
+module "airflow" {
   source    = "../.."
   subnet_id = module.vpc.public_subnets[0]
 
-  vpc_security_group_ids = [aws_security_group.this.id]
+  vpc_security_group_ids = [
+  aws_security_group.this.id]
 
-  public_key_path  = "/path/to/key.pub"
-  private_key_path = "/path/to/key"
-  ```
+  public_key_path  = var.public_key_path
+  private_key_path = var.private_key_path
+}
+```
 ## Examples
 
 - [defaults](https://github.com/robc-io/terraform-aws-ec2-airflow/tree/master/examples/defaults)
