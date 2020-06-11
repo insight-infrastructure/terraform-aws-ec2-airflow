@@ -5,6 +5,14 @@
 This module sets up an airflow instance running the sequential executor on AWS. It mounts an EFS volume to that instance 
 to sync airflow DAGs locally to the workers. 
 
+To run example module:
+```bash
+cd examples/defaults
+terraform apply 
+cd ../..
+make mount-efs
+```
+
 ## Terraform Versions
 
 For Terraform v0.12.0+
@@ -53,6 +61,8 @@ No issue is creating limit on this module.
 | root\_volume\_size | Root volume size | `string` | `8` | no |
 | subnet\_id | The id of the subnet | `string` | n/a | yes |
 | tags | Tags to attach to all resources | `map(string)` | `{}` | no |
+| user\_data | User data as raw text - not to be user with user\_data\_file\_path | `string` | `""` | no |
+| user\_data\_file\_path | Path to user data file - not to be used with user\_data | `string` | `""` | no |
 | vpc\_security\_group\_ids | List of security groups | `list(string)` | n/a | yes |
 
 ## Outputs

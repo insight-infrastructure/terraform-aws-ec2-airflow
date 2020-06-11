@@ -71,3 +71,15 @@ variable "playbook_vars" {
   type        = map(string)
   default     = {}
 }
+
+variable "user_data" {
+  description = "User data as raw text - not to be user with user_data_file_path"
+  type        = string
+  default     = ""
+}
+
+variable "user_data_file_path" {
+  description = "Path to user data file - not to be used with user_data"
+  type        = string
+  default     = ""
+}

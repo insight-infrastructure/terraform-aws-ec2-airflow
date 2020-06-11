@@ -21,6 +21,8 @@ resource "aws_instance" "this" {
   ami           = module.ami.ubuntu_1804_ami_id
   instance_type = var.instance_type
 
+  user_data = var.user_data != "" ? var.user_data : var.user_data_file_path != "" ? file(var.user_data_file_path) : ""
+
   subnet_id              = var.subnet_id
   vpc_security_group_ids = var.vpc_security_group_ids
   key_name               = var.public_key_path == "" ? var.key_name : aws_key_pair.this.*.key_name[0]

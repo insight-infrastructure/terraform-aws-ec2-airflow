@@ -43,12 +43,19 @@ resource "aws_security_group" "this" {
   }
 }
 
+resource "random_pet" "this" {
+  length = 2
+}
+
 module "airflow" {
   source    = "../.."
   subnet_id = module.vpc.public_subnets[0]
 
-  vpc_security_group_ids = [
-  aws_security_group.this.id]
+  name = random_pet.this.id
+
+  user_data_file_path = "${path.cwd}/example_user_data.sh"
+
+  vpc_security_group_ids = [aws_security_group.this.id]
 
   public_key_path  = var.public_key_path
   private_key_path = var.private_key_path
