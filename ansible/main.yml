@@ -3,7 +3,6 @@
   roles:
     - common
     - idealista.airflow-role
-    - andrewrothstein.r
 
 
   vars:
