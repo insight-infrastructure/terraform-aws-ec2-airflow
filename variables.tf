@@ -1,32 +1,92 @@
-variable "name" {
-  description = "A unique name to give all the resources"
-  type        = string
-  default     = "airflow"
-}
-
-variable "tags" {
-  description = "Tags to attach to all resources"
-  type        = map(string)
-  default     = {}
-}
-
-variable "create_efs" {
-  description = "Boolean to create EFS file system"
+variable "create" {
+  description = "Boolean to make module or not"
   type        = bool
   default     = true
 }
 
-######
-# Data
-######
-variable "eip_id" {
-  description = "The elastic ip id to attach to active instance"
+variable "create_ansible" {
+  description = "Boolean to make module or not"
+  type        = bool
+  default     = true
+}
+
+variable "create_security_group" {
+  description = "Bool to create security group"
+  type        = bool
+  default     = true
+}
+
+variable "create_instance_profile" {
+  description = "Bool to create IAM instance profile"
+  type        = bool
+  default     = true
+}
+
+########
+# Label
+########
+variable "network_name" {
+  description = "The network name, ie kusama / mainnet"
   type        = string
   default     = ""
 }
 
+variable "name" {
+  description = "The name of the resources"
+  type        = string
+  default     = ""
+}
+
+variable "tags" {
+  description = "Tags to associate with the instance."
+  type        = map(string)
+  default     = {}
+}
+
+#########
+# Network
+#########
 variable "subnet_id" {
-  description = "The id of the subnet - blank for default"
+  description = "The id of the subnet. Must be supplied if given vpc_id"
+  type        = string
+  default     = null
+}
+
+variable "vpc_id" {
+  description = "The vpc id to associate with.  Must be supplied if given subnet_id"
+  type        = string
+  default     = ""
+}
+
+variable "subnet_num" {
+  description = "The index of the availability zone to deploy into"
+  type        = number
+  default     = 0
+}
+
+#################
+# Security Groups
+#################
+variable "additional_security_groups" {
+  description = "List of additional security groups"
+  type        = list(string)
+  default     = []
+}
+
+variable "open_ports" {
+  description = "List of ports to open. Basic setup needs 22 (ssh), 2049 (nfs-insecure), 8080 (airflow)"
+  type        = list(string)
+  default     = [22, 2049, 8080]
+}
+
+variable "ssh_ips" {
+  description = "List of IPs to restrict ssh traffic to"
+  type        = list(string)
+  default     = null
+}
+
+variable "eip_id" {
+  description = "The elastic ip id to attach to active instance"
   type        = string
   default     = ""
 }
@@ -38,12 +98,27 @@ variable "vpc_security_group_ids" {
 }
 
 #####
+# efs
+#####
+variable "create_efs" {
+  description = "Boolean to create EFS file system"
+  type        = bool
+  default     = true
+}
+
+#####
 # ec2
 #####
 variable "key_name" {
   description = "The key pair to import"
   type        = string
   default     = ""
+}
+
+variable "monitoring_enabled" {
+  description = "Enable cloudwatch monitoring on node"
+  type        = bool
+  default     = true
 }
 
 variable "root_volume_size" {
