@@ -4,6 +4,7 @@
     - common
     - idealista.airflow-role
 
+
   vars:
     # Airflow
     airflow_pip_executable: /usr/bin/pip3

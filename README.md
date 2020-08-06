@@ -11,6 +11,7 @@ cd examples/defaults
 terraform apply 
 cd ../..
 make mount-efs
+cp dag_example.py dags/
 ```
 
 ## Terraform Versions
@@ -44,26 +45,39 @@ No issue is creating limit on this module.
 | Name | Version |
 |------|---------|
 | aws | n/a |
+| null | n/a |
 | random | n/a |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
+| additional\_security\_groups | List of additional security groups | `list(string)` | `[]` | no |
+| az\_num | The index of the default VPC AZ to put the instance in if the subnet is not supplied directly | `number` | `0` | no |
+| create | Boolean to make module or not | `bool` | `true` | no |
+| create\_ansible | Boolean to make module or not | `bool` | `true` | no |
 | create\_efs | Boolean to create EFS file system | `bool` | `true` | no |
+| create\_instance\_profile | Bool to create IAM instance profile | `bool` | `true` | no |
+| create\_security\_group | Bool to create security group | `bool` | `true` | no |
 | eip\_id | The elastic ip id to attach to active instance | `string` | `""` | no |
 | instance\_type | Instance type | `string` | `"t2.medium"` | no |
 | key\_name | The key pair to import | `string` | `""` | no |
-| name | A unique name to give all the resources | `string` | `"airflow"` | no |
+| monitoring\_enabled | Enable cloudwatch monitoring on node | `bool` | `true` | no |
+| name | The name of the resources | `string` | `""` | no |
+| network\_name | The network name, ie kusama / mainnet | `string` | `""` | no |
+| open\_ports | List of ports to open. Basic setup needs 22 (ssh), 2049 (nfs-insecure), 8080 (airflow) | `list(string)` | <pre>[<br>  22,<br>  2049,<br>  8080<br>]</pre> | no |
 | playbook\_vars | Extra vars to include, can be hcl or json | `map(string)` | `{}` | no |
 | private\_key\_path | The path to the private ssh key | `string` | n/a | yes |
 | public\_key\_path | The path to the public ssh key | `string` | n/a | yes |
 | root\_volume\_size | Root volume size | `string` | `8` | no |
-| subnet\_id | The id of the subnet | `string` | n/a | yes |
-| tags | Tags to attach to all resources | `map(string)` | `{}` | no |
+| ssh\_ips | List of IPs to restrict ssh traffic to | `list(string)` | n/a | yes |
+| subnet\_id | The id of the subnet. Must be supplied if given vpc\_id | `string` | n/a | yes |
+| subnet\_num | The index of the availability zone to deploy into | `number` | `0` | no |
+| tags | Tags to associate with the instance. | `map(string)` | `{}` | no |
 | user\_data | User data as raw text - not to be user with user\_data\_file\_path | `string` | `""` | no |
 | user\_data\_file\_path | Path to user data file - not to be used with user\_data | `string` | `""` | no |
-| vpc\_security\_group\_ids | List of security groups | `list(string)` | n/a | yes |
+| vpc\_id | The vpc id to associate with.  Must be supplied if given subnet\_id | `string` | `""` | no |
+| vpc\_security\_group\_ids | List of security groups - blank for default | `list(string)` | `[]` | no |
 
 ## Outputs
 
