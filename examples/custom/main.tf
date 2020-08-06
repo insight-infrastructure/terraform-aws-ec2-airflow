@@ -49,6 +49,7 @@ resource "random_pet" "this" {
 
 module "airflow" {
   source    = "../.."
+  vpc_id    = module.vpc.vpc_id
   subnet_id = module.vpc.public_subnets[0]
 
   name = random_pet.this.id
