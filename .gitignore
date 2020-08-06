@@ -2,6 +2,7 @@
 
 # Terraform and terragrunt
 *.tfstate
+.terraform.tfstate.lock.info
 *.tfstate.backup
 *.tfplan
 .terragrunt-cache/

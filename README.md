@@ -11,6 +11,7 @@ cd examples/defaults
 terraform apply 
 cd ../..
 make mount-efs
+cp dag_example.py dags/
 ```
 
 ## Terraform Versions
@@ -50,6 +51,7 @@ No issue is creating limit on this module.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
+| az\_num | The index of the default VPC AZ to put the instance in if the subnet is not supplied directly | `number` | `0` | no |
 | create\_efs | Boolean to create EFS file system | `bool` | `true` | no |
 | eip\_id | The elastic ip id to attach to active instance | `string` | `""` | no |
 | instance\_type | Instance type | `string` | `"t2.medium"` | no |
@@ -59,11 +61,11 @@ No issue is creating limit on this module.
 | private\_key\_path | The path to the private ssh key | `string` | n/a | yes |
 | public\_key\_path | The path to the public ssh key | `string` | n/a | yes |
 | root\_volume\_size | Root volume size | `string` | `8` | no |
-| subnet\_id | The id of the subnet | `string` | n/a | yes |
+| subnet\_id | The id of the subnet - blank for default | `string` | `""` | no |
 | tags | Tags to attach to all resources | `map(string)` | `{}` | no |
 | user\_data | User data as raw text - not to be user with user\_data\_file\_path | `string` | `""` | no |
 | user\_data\_file\_path | Path to user data file - not to be used with user\_data | `string` | `""` | no |
-| vpc\_security\_group\_ids | List of security groups | `list(string)` | n/a | yes |
+| vpc\_security\_group\_ids | List of security groups - blank for default | `list(string)` | `[]` | no |
 
 ## Outputs
 

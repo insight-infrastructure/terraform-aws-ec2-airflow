@@ -26,13 +26,15 @@ variable "eip_id" {
 }
 
 variable "subnet_id" {
-  description = "The id of the subnet"
+  description = "The id of the subnet - blank for default"
   type        = string
+  default     = ""
 }
 
 variable "vpc_security_group_ids" {
-  description = "List of security groups"
+  description = "List of security groups - blank for default"
   type        = list(string)
+  default     = []
 }
 
 #####
@@ -82,4 +84,10 @@ variable "user_data_file_path" {
   description = "Path to user data file - not to be used with user_data"
   type        = string
   default     = ""
+}
+
+variable "az_num" {
+  description = "The index of the default VPC AZ to put the instance in if the subnet is not supplied directly"
+  type        = number
+  default     = 0
 }
