@@ -4,9 +4,10 @@
     - common
     - idealista.airflow-role
 
-
   vars:
     # Airflow
+    airflow_user: airflow
+    airflow_group: airflow
     airflow_pip_executable: /usr/bin/pip3
     airflow_required_python_packages:
       - {name: pyasn1, version: 0.4.4}
