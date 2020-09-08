@@ -3,4 +3,4 @@ public_ip=$(terraform output -json -state=./examples/defaults/terraform.tfstate 
 echo $public_ip
 mkdir -p ./dags
 sudo mount -t nfs -o vers=4 -o tcp -w ${public_ip}:/ ./dags
-sudo chown 1000:1000 ./dags
+sudo chown $UID:$GID ./dags
