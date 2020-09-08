@@ -1,8 +1,9 @@
 ---
 - hosts: all
   roles:
-    - common
+    - setup
     - idealista.airflow-role
+    - efs
 
   vars:
     # Airflow

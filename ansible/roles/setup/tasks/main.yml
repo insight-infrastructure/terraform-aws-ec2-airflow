@@ -45,6 +45,3 @@
     pippkgs:
       - cryptography
       - werkzeug==0.16.1
-
-- name: mount efs
-  import_tasks: efs.yml
