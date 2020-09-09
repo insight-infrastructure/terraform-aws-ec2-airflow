@@ -32,3 +32,8 @@ output "mount_target_ids" {
   value       = join("", aws_efs_mount_target.this.*.id)
   description = "List of EFS mount target IDs (one per Availability Zone)"
 }
+
+output "fqdn" {
+  description = "FQDN - eg airflow.example.com"
+  value       = local.fqdn
+}

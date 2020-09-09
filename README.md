@@ -54,12 +54,15 @@ No issue is creating limit on this module.
 |------|-------------|------|---------|:-----:|
 | additional\_security\_groups | List of additional security groups | `list(string)` | `[]` | no |
 | az\_num | The index of the default VPC AZ to put the instance in if the subnet is not supplied directly | `number` | `0` | no |
+| certbot\_admin\_email | Admin email for SSL cert - must be in same domain | `string` | `""` | no |
 | create | Boolean to make module or not | `bool` | `true` | no |
 | create\_ansible | Boolean to make module or not | `bool` | `true` | no |
 | create\_efs | Boolean to create EFS file system | `bool` | `true` | no |
 | create\_instance\_profile | Bool to create IAM instance profile | `bool` | `true` | no |
 | create\_security\_group | Bool to create security group | `bool` | `true` | no |
+| domain\_name | The domain - example.com. Blank for no ssl / nginx | `string` | `""` | no |
 | eip\_id | The elastic ip id to attach to active instance | `string` | `""` | no |
+| hostname | The hostname - ie hostname.example.com | `string` | `"airflow"` | no |
 | instance\_type | Instance type | `string` | `"t2.medium"` | no |
 | key\_name | The key pair to import | `string` | `""` | no |
 | monitoring\_enabled | Enable cloudwatch monitoring on node | `bool` | `true` | no |
@@ -84,6 +87,7 @@ No issue is creating limit on this module.
 | Name | Description |
 |------|-------------|
 | dns\_name | EFS DNS name |
+| fqdn | FQDN - eg airflow.example.com |
 | instance\_id | The instance ID created |
 | instance\_profile | The instance profile id |
 | instance\_profile\_name | The instance profile name |

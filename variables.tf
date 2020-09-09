@@ -22,6 +22,18 @@ variable "create_instance_profile" {
   default     = true
 }
 
+variable "domain_name" {
+  description = "The domain - example.com. Blank for no ssl / nginx"
+  type        = string
+  default     = ""
+}
+
+variable "hostname" {
+  description = "The hostname - ie hostname.example.com"
+  type        = string
+  default     = "airflow"
+}
+
 ########
 # Label
 ########
@@ -95,6 +107,12 @@ variable "vpc_security_group_ids" {
   description = "List of security groups - blank for default"
   type        = list(string)
   default     = []
+}
+
+variable "certbot_admin_email" {
+  description = "Admin email for SSL cert - must be in same domain"
+  type        = string
+  default     = ""
 }
 
 #####

@@ -1,3 +1,6 @@
 roles:
   - src: idealista.airflow-role
     version: 1.8.0
+  - src: geerlingguy.certbot
+    version: 3.0.3
+  - src: geerlingguy.nginx

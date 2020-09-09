@@ -1,0 +1,30 @@
+---
+
+- name: Run certbot for SSL
+  include_role:
+    name: geerlingguy.certbot
+  vars:
+    certbot_create_if_missing: true
+    certbot_admin_email: "{{ certbot_admin_email }}"
+    certbot_certs:
+      - domains:
+          - "{{ fqdn }}"
+    certbot_create_standalone_stop_services: []
+
+- include_role:
+    name: geerlingguy.nginx
+
+- name: Copy over nginx conf for SSL
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+
+- name: Copy over airflow nginx conf for SSL
+  template:
+    src: airflow.conf.j2
+    dest: /etc/nginx/sites-enabled/airflow.conf
+  notify:
+    - restart nginx
+
+- name: Flush handlers in case any configs have changed.
+  meta: flush_handlers

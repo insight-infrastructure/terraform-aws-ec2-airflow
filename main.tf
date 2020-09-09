@@ -90,6 +90,10 @@ resource "aws_instance" "this" {
   }, var.tags)
 }
 
+locals {
+  fqdn = var.domain_name != "" && var.hostname != "" ? "${var.hostname}.${var.domain_name}" : ""
+}
+
 #########
 # Ansible
 module "ansible" {
@@ -101,7 +105,10 @@ module "ansible" {
 
   playbook_file_path = "${path.module}/ansible/main.yml"
   playbook_vars = merge({
-    file_system_id = join("", aws_efs_file_system.this.*.id),
+    file_system_id      = join("", aws_efs_file_system.this.*.id),
+    airflow_ssl_enabled = var.domain_name != "" && var.hostname != ""
+    fqdn                = local.fqdn
+    certbot_admin_email = var.certbot_admin_email == "" ? "admin@${var.domain_name}" : var.certbot_admin_email
   }, var.playbook_vars)
 
   requirements_file_path = "${path.module}/ansible/requirements.yml"
