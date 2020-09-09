@@ -8,6 +8,11 @@ output "instance_id" {
   description = "The instance ID created"
 }
 
+output "instance_profile" {
+  value       = join("", aws_iam_instance_profile.this.*.id)
+  description = "The instance profile id"
+}
+
 output "key_name" {
   value       = join("", aws_key_pair.this.*.key_name)
   description = "The key pair name created"
