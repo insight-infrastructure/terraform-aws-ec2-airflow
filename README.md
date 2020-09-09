@@ -86,6 +86,7 @@ No issue is creating limit on this module.
 | dns\_name | EFS DNS name |
 | instance\_id | The instance ID created |
 | instance\_profile | The instance profile id |
+| instance\_profile\_name | The instance profile name |
 | key\_name | The key pair name created |
 | mount\_target\_ids | List of EFS mount target IDs (one per Availability Zone) |
 | public\_ip | The public IP of the instance created |

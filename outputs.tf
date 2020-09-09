@@ -13,6 +13,11 @@ output "instance_profile" {
   description = "The instance profile id"
 }
 
+output "instance_profile_name" {
+  value       = join("", aws_iam_instance_profile.this.*.name)
+  description = "The instance profile name"
+}
+
 output "key_name" {
   value       = join("", aws_key_pair.this.*.key_name)
   description = "The key pair name created"
