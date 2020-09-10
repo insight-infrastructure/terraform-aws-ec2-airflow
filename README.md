@@ -20,7 +20,8 @@ For Terraform v0.12.0+
 
 ## Usage
 
-```hcl-terraform
+**Basic**
+```hcl
 module "airflow" {
   source    = "../.."
   subnet_id = module.vpc.public_subnets[0]
@@ -32,6 +33,36 @@ module "airflow" {
   private_key_path = var.private_key_path
 }
 ```
+
+**Advanced with SSL**
+```hcl
+module "airflow" {
+  source = "../.."
+
+  name = random_pet.this.id
+
+  domain_name = "insight-infra.de"
+  hostname    = "airflow"
+
+  open_ports = [22, 443, 80]
+  user_data_file_path = "${path.cwd}/example_user_data.sh"
+
+  public_key_path  = var.public_key_path
+  private_key_path = var.private_key_path
+ 
+  playbook_vars = {
+    # Consult https://github.com/idealista/airflow-role/blob/master/defaults/main.yml for details     
+    airflow_executor = "CeleryExecutor"
+  # TODO Celeery executor details 
+    
+    dags_dependencies = [
+      {name: "scikit-learn", version: 0.23.2} 
+    ]
+  }
+}
+```
+
+
 ## Examples
 
 - [defaults](https://github.com/robc-io/terraform-aws-ec2-airflow/tree/master/examples/defaults)
@@ -60,6 +91,7 @@ No issue is creating limit on this module.
 | create\_efs | Boolean to create EFS file system | `bool` | `true` | no |
 | create\_instance\_profile | Bool to create IAM instance profile | `bool` | `true` | no |
 | create\_security\_group | Bool to create security group | `bool` | `true` | no |
+| create\_ssl | Bool to create ssl cert and nginx proxy | `bool` | `true` | no |
 | domain\_name | The domain - example.com. Blank for no ssl / nginx | `string` | `""` | no |
 | eip\_id | The elastic ip id to attach to active instance | `string` | `""` | no |
 | hostname | The hostname - ie hostname.example.com | `string` | `"airflow"` | no |

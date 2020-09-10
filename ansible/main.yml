@@ -5,11 +5,13 @@
     - idealista.airflow-role
     - efs
     - {role: nginx, when: airflow_ssl_enabled | bool}
+    - {role: redis, when: airflow_executor == 'CeleryExecutor'}
 
   vars:
     # Airflow
     airflow_user: airflow
     airflow_group: airflow
+    airflow_executor: SequentialExecutor
     airflow_pip_executable: /usr/bin/pip3
     airflow_required_python_packages:
       - {name: pyasn1, version: 0.4.4}
