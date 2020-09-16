@@ -5,7 +5,7 @@
     - idealista.airflow-role
     - efs
     - {role: nginx, when: airflow_ssl_enabled | bool}
-    - {role: redis, when: airflow_executor == 'CeleryExecutor'}
+    #- {role: redis, when: airflow_executor == 'CeleryExecutor'}
 
   vars:
     # Airflow
