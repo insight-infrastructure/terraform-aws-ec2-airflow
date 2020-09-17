@@ -194,6 +194,6 @@ variable "create_s3_output_bucket" {
 }
 
 variable "s3_output_bucket_name" {
-  default = "*Unique* name of S3 bucket for Airflow outputs"
-  type    = string
+  description = "*Unique* name of S3 bucket for Airflow outputs"
+  type        = string
 }
