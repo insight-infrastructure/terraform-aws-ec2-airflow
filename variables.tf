@@ -184,3 +184,16 @@ variable "az_num" {
   type        = number
   default     = 0
 }
+
+### Airflow S3 Outputs
+
+variable "create_s3_output_bucket" {
+  description = "Bool to enable creation of Airflow outputs bucket in S3"
+  type        = bool
+  default     = true
+}
+
+variable "s3_output_bucket_name" {
+  default = "*Unique* name of S3 bucket for Airflow outputs"
+  type    = string
+}
