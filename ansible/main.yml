@@ -2,6 +2,7 @@
 - hosts: all
   roles:
     - setup
+    - geerlingguy.postgresql
     - idealista.airflow-role
     - efs
     - {role: nginx, when: airflow_ssl_enabled | bool}
@@ -16,6 +17,7 @@
     airflow_required_python_packages:
       - {name: pyasn1, version: 0.4.4}
       - {name: werkzeug, version: 0.16.0}
+      - {name: psycopg2-binary}
     airflow_version: 1.10.10
 
     # EFS
@@ -24,3 +26,11 @@
     
     # SSL
     enable_airflow_ssl: false
+
+    # Postgres backend DB
+    airflow_database_conn: postgresql+psycopg2://airflow:airflow@localhost:5432/airflow
+    postgresql_databases:
+      - name: airflow
+    postgresql_users:
+      - name: airflow
+        password: airflow
