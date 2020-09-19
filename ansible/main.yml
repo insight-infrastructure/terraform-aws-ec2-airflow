@@ -19,6 +19,7 @@
       - {name: werkzeug, version: 0.16.0}
       - {name: psycopg2-binary}
     airflow_version: 1.10.10
+    airflow_load_examples: False
 
     # EFS
     mount_path: "/etc/airflow/dags"

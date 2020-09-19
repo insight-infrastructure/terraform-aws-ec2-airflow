@@ -3,7 +3,7 @@ resource "random_pet" "this" {}
 data "aws_region" "this" {}
 
 locals {
-  name = var.name == "" ? "harmony-validator-${random_pet.this.id}" : var.name
+  name = var.name == "" ? "airflow-${random_pet.this.id}" : var.name
 }
 
 #########
