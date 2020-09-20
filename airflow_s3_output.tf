@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "airflow_output_bucket" {
   acl    = "private"
 }
 
-resource "aws_iam_policy" "s3_airflow_ouput_policy" {
+resource "aws_iam_policy" "s3_airflow_output_policy" {
   count  = var.create_instance_profile && var.create_s3_output_bucket ? 1 : 0
   name   = "${local.name}_airflow_output_bucket_policy"
   policy = <<-EOT
@@ -22,8 +22,8 @@ resource "aws_iam_policy" "s3_airflow_ouput_policy" {
 EOT
 }
 
-resource "aws_iam_role_policy_attachment" "s3_put_logs_policy" {
+resource "aws_iam_role_policy_attachment" "s3_airflow_output_policy" {
   count      = var.create_instance_profile && var.create_s3_output_bucket ? 1 : 0
   role       = join("", aws_iam_role.this.*.id)
-  policy_arn = join("", aws_iam_policy.s3_airflow_ouput_policy.*.arn)
+  policy_arn = join("", aws_iam_policy.s3_airflow_output_policy.*.arn)
 }
