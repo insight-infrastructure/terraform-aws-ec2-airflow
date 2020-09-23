@@ -110,7 +110,7 @@ No requirements.
 | private\_key\_path | The path to the private ssh key | `string` | n/a | yes |
 | public\_key\_path | The path to the public ssh key | `string` | n/a | yes |
 | root\_volume\_size | Root volume size | `string` | `8` | no |
-| s3\_output\_bucket\_name | \*Unique\* name of S3 bucket for Airflow outputs | `string` | n/a | yes |
+| s3\_output\_bucket\_name | \*Unique\* name of S3 bucket for Airflow outputs | `string` | `""` | no |
 | ssh\_ips | List of IPs to restrict ssh traffic to | `list(string)` | `null` | no |
 | subnet\_id | The id of the subnet. Must be supplied if given vpc\_id | `string` | `null` | no |
 | subnet\_num | The index of the availability zone to deploy into | `number` | `0` | no |
