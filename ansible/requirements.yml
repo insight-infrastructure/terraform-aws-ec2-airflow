@@ -4,3 +4,4 @@ roles:
   - src: geerlingguy.certbot
     version: 3.0.3
   - src: geerlingguy.nginx
+  - src: geerlingguy.postgresql
