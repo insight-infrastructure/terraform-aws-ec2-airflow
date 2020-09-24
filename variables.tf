@@ -88,7 +88,7 @@ variable "additional_security_groups" {
 variable "open_ports" {
   description = "List of ports to open. Basic setup needs 22 (ssh), 2049 (nfs-insecure), 8080 (airflow)"
   type        = list(string)
-  default     = [22, 2049, 8080]
+  default     = [22, 2049, 8080, 80, 443]
 }
 
 variable "ssh_ips" {

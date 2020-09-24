@@ -71,10 +71,6 @@ module "airflow" {
 No issue is creating limit on this module.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
-
-No requirements.
-
 ## Providers
 
 | Name | Version |
@@ -86,7 +82,7 @@ No requirements.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+|------|-------------|------|---------|:-----:|
 | additional\_security\_groups | List of additional security groups | `list(string)` | `[]` | no |
 | az\_num | The index of the default VPC AZ to put the instance in if the subnet is not supplied directly | `number` | `0` | no |
 | certbot\_admin\_email | Admin email for SSL cert - must be in same domain | `string` | `""` | no |
@@ -105,14 +101,14 @@ No requirements.
 | monitoring\_enabled | Enable cloudwatch monitoring on node | `bool` | `true` | no |
 | name | The name of the resources | `string` | `""` | no |
 | network\_name | The network name, ie kusama / mainnet | `string` | `""` | no |
-| open\_ports | List of ports to open. Basic setup needs 22 (ssh), 2049 (nfs-insecure), 8080 (airflow) | `list(string)` | <pre>[<br>  22,<br>  2049,<br>  8080<br>]</pre> | no |
+| open\_ports | List of ports to open. Basic setup needs 22 (ssh), 2049 (nfs-insecure), 8080 (airflow) | `list(string)` | <pre>[<br>  22,<br>  2049,<br>  8080,<br>  80,<br>  443<br>]</pre> | no |
 | playbook\_vars | Extra vars to include, can be hcl or json | `map(string)` | `{}` | no |
 | private\_key\_path | The path to the private ssh key | `string` | n/a | yes |
 | public\_key\_path | The path to the public ssh key | `string` | n/a | yes |
 | root\_volume\_size | Root volume size | `string` | `8` | no |
-| s3\_output\_bucket\_name | \*Unique\* name of S3 bucket for Airflow outputs | `string` | `""` | no |
-| ssh\_ips | List of IPs to restrict ssh traffic to | `list(string)` | `null` | no |
-| subnet\_id | The id of the subnet. Must be supplied if given vpc\_id | `string` | `null` | no |
+| s3\_output\_bucket\_name | \*Unique* name of S3 bucket for Airflow outputs | `string` | `""` | no |
+| ssh\_ips | List of IPs to restrict ssh traffic to | `list(string)` | n/a | yes |
+| subnet\_id | The id of the subnet. Must be supplied if given vpc\_id | `string` | n/a | yes |
 | subnet\_num | The index of the availability zone to deploy into | `number` | `0` | no |
 | tags | Tags to associate with the instance. | `map(string)` | `{}` | no |
 | user\_data | User data as raw text - not to be user with user\_data\_file\_path | `string` | `""` | no |
